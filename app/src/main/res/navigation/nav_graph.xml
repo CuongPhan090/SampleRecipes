@@ -3,38 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/categoryFragment">
+    app:startDestination="@id/category_fragment">
 
     <fragment
-        android:id="@+id/categoryFragment"
+        android:id="@+id/category_fragment"
         android:name="com.offline.continentalrecipesusingnavgraph.view.CategoryFragment"
         android:label="fragment_category"
-        tools:layout="@layout/fragment_category" >
+        tools:layout="@layout/fragment_category">
         <action
             android:id="@+id/action_categoryFragment_to_mealFragment"
-            app:destination="@id/mealFragment" />
+            app:destination="@id/meal_fragment" />
     </fragment>
     <fragment
-        android:id="@+id/mealFragment"
+        android:id="@+id/meal_fragment"
         android:name="com.offline.continentalrecipesusingnavgraph.view.MealFragment"
         android:label="fragment_meal"
-        tools:layout="@layout/fragment_meal" >
+        tools:layout="@layout/fragment_meal">
         <action
             android:id="@+id/action_mealFragment_to_recipeFragment"
-            app:destination="@id/recipeFragment" />
+            app:destination="@id/recipe_fragment" />
     </fragment>
     <fragment
-        android:id="@+id/recipeFragment"
+        android:id="@+id/recipe_fragment"
         android:name="com.offline.continentalrecipesusingnavgraph.view.RecipeFragment"
         android:label="fragment_recipe"
         tools:layout="@layout/fragment_recipe" />
     <fragment
-        android:id="@+id/favoriteFragment"
+        android:id="@+id/favorite_fragment"
         android:name="com.offline.continentalrecipesusingnavgraph.view.FavoriteFragment"
         android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" >
+        tools:layout="@layout/fragment_favorite">
         <action
             android:id="@+id/action_favoriteFragment_to_recipeFragment"
-            app:destination="@id/recipeFragment" />
+            app:destination="@id/recipe_fragment" />
     </fragment>
 </navigation>
