@@ -9,7 +9,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.offline.continentalrecipesusingnavgraph.R
 import com.offline.continentalrecipesusingnavgraph.databinding.ActivityEntryBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EntryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEntryBinding

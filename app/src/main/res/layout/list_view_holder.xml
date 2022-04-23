@@ -8,7 +8,14 @@
     android:layout_marginVertical="@dimen/card_view_margin_vertical"
     app:cardCornerRadius="@dimen/card_view_corner_radius">
 
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -29,7 +36,5 @@
             android:visibility="gone"
             android:textStyle="bold"
             tools:text="Beef" />
-
-
     </FrameLayout>
 </androidx.cardview.widget.CardView>
