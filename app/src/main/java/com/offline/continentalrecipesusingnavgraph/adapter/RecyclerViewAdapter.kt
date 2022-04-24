@@ -16,19 +16,24 @@ import com.offline.continentalrecipesusingnavgraph.R
 import com.offline.continentalrecipesusingnavgraph.databinding.ListViewHolderBinding
 import com.offline.continentalrecipesusingnavgraph.model.Category
 
-class RecyclerViewAdapter: ListAdapter<Category, RecyclerViewAdapter.RecyclerViewHolder>(RecyclerViewDiff()) {
+class RecyclerViewAdapter(val onItemClickListener: (Category) -> Any): ListAdapter<Category, RecyclerViewAdapter.RecyclerViewHolder>(RecyclerViewDiff()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        return RecyclerViewHolder(ListViewHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return RecyclerViewHolder(ListViewHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)) {
+            onItemClickListener(getItem(it))
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class RecyclerViewHolder(private val binding: ListViewHolderBinding): RecyclerView.ViewHolder(binding.root) {
+    class RecyclerViewHolder(private val binding: ListViewHolderBinding, private val onItemClickedPosition: (Int) -> Any): RecyclerView.ViewHolder(binding.root) {
 
         init {
             showShimmer(true)
+            itemView.setOnClickListener{
+                onItemClickedPosition(adapterPosition)
+            }
         }
 
         fun bind(category: Category) {
