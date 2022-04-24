@@ -1,4 +1,4 @@
-package com.offline.continentalrecipesusingnavgraph.view
+package com.offline.continentalrecipesusingnavgraph.view.favorite
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

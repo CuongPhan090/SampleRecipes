@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.offline.continentalrecipesusingnavgraph.R
@@ -23,25 +24,24 @@ class MealFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMealBinding.inflate(layoutInflater, container, false)
+        (activity as AppCompatActivity).supportActionBar?.title = viewModel.selectedCategoryName
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupAdapter()
-
     }
+
     private fun setupAdapter() {
         adapter = MealAdapter{
             viewModel.putSelectedMeal(it.name)
             findNavController().navigate(R.id.action_mealFragment_to_recipeFragment)
         }
-        Log.d("TAG", "setupAdapter")
 
         binding.mealRecyclerView.adapter = adapter
         viewModel.meals.observe(viewLifecycleOwner) {
             adapter.submitList(it.meals)
-            Log.d("TAGMEALFRAGMENT", "${it.meals}")
         }
     }
 }

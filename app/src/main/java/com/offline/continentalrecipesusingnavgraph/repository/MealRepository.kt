@@ -1,5 +1,8 @@
 package com.offline.continentalrecipesusingnavgraph.repository
 
+import androidx.lifecycle.LiveData
+import com.offline.continentalrecipesusingnavgraph.data.local.LocalDataImpl
+import com.offline.continentalrecipesusingnavgraph.data.local.MealEntity
 import com.offline.continentalrecipesusingnavgraph.data.remote.RemoteDataImpl
 import com.offline.continentalrecipesusingnavgraph.model.Categories
 import com.offline.continentalrecipesusingnavgraph.model.Meals
@@ -17,10 +20,14 @@ interface MealRepository {
     fun getSelectedMeal(): String
 
     suspend fun getRecipe(selectedMealName: String): Recipes
+
+    suspend fun insertMeal(meal: MealEntity)
+    suspend fun removeMeal(meal: MealEntity)
+    fun getAllFavoriteMeals(): LiveData<List<MealEntity>>
 }
 
 @Singleton
-class MealRepositoryImpl @Inject constructor(private val remoteData: RemoteDataImpl): MealRepository{
+class MealRepositoryImpl @Inject constructor(private val remoteData: RemoteDataImpl, private val localData: LocalDataImpl): MealRepository{
 
     private val itemClickedMap = mutableMapOf<String, String>()
 
@@ -46,4 +53,13 @@ class MealRepositoryImpl @Inject constructor(private val remoteData: RemoteDataI
 
     override suspend fun getRecipe(selectedMealName: String): Recipes =
         remoteData.getRecipe(selectedMealName)
+
+    override suspend fun insertMeal(meal: MealEntity) =
+        localData.insertMeal(meal)
+
+    override suspend fun removeMeal(meal: MealEntity) =
+        localData.removeMeal(meal)
+
+    override fun getAllFavoriteMeals(): LiveData<List<MealEntity>> =
+        localData.getAllMeals()
 }
