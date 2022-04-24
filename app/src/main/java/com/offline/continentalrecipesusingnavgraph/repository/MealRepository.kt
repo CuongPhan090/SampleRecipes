@@ -3,6 +3,7 @@ package com.offline.continentalrecipesusingnavgraph.repository
 import com.offline.continentalrecipesusingnavgraph.data.remote.RemoteDataImpl
 import com.offline.continentalrecipesusingnavgraph.model.Categories
 import com.offline.continentalrecipesusingnavgraph.model.Meals
+import com.offline.continentalrecipesusingnavgraph.model.Recipes
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -14,6 +15,8 @@ interface MealRepository {
     suspend fun getMeals(selectedCategory: String): Meals
     fun putSelectedMeal(selectedMealName: String)
     fun getSelectedMeal(): String
+
+    suspend fun getRecipe(selectedMealName: String): Recipes
 }
 
 @Singleton
@@ -40,4 +43,7 @@ class MealRepositoryImpl @Inject constructor(private val remoteData: RemoteDataI
 
     override fun getSelectedMeal(): String =
         itemClickedMap["selectedMeal"] ?: ""
+
+    override suspend fun getRecipe(selectedMealName: String): Recipes =
+        remoteData.getRecipe(selectedMealName)
 }

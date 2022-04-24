@@ -7,4 +7,6 @@
     <string name="rate">Rate</string>
     <string name="share">Share</string>
     <string name="about">About</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
 </resources>

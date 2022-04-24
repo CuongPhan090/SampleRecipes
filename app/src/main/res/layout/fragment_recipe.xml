@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.RecipeFragment">
+    tools:context=".view.recipe.RecipeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,6 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
                     android:layout_marginEnd="10dp"
+                    android:id="@+id/favorite_fab"
                     android:backgroundTint="@color/cardview_dark_background"
                     android:contentDescription="@null"
                     android:src="@drawable/ic_hollow_favorite"
@@ -45,9 +46,11 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <include layout="@layout/recipe_detail_card" />
+        <include layout="@layout/recipe_detail_card"
+            android:id="@+id/ingredients"/>
 
-        <include layout="@layout/recipe_detail_card" />
+        <include layout="@layout/recipe_detail_card"
+            android:id="@+id/instructions"/>
 
     </LinearLayout>
 </ScrollView>
