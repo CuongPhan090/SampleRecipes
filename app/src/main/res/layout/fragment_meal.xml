@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_bright"
-    tools:context=".view.MealFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.meal.MealFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:id="@+id/meal_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

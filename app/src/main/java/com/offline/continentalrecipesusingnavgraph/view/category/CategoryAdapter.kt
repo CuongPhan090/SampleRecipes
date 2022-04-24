@@ -1,4 +1,4 @@
-package com.offline.continentalrecipesusingnavgraph.adapter
+package com.offline.continentalrecipesusingnavgraph.view.category
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -16,18 +16,18 @@ import com.offline.continentalrecipesusingnavgraph.R
 import com.offline.continentalrecipesusingnavgraph.databinding.ListViewHolderBinding
 import com.offline.continentalrecipesusingnavgraph.model.Category
 
-class RecyclerViewAdapter(val onItemClickListener: (Category) -> Any): ListAdapter<Category, RecyclerViewAdapter.RecyclerViewHolder>(RecyclerViewDiff()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        return RecyclerViewHolder(ListViewHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)) {
+class CategoryAdapter(val onItemClickListener: (Category) -> Any): ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(CategoryDiff()) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
+        return CategoryViewHolder(ListViewHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)) {
             onItemClickListener(getItem(it))
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class RecyclerViewHolder(private val binding: ListViewHolderBinding, private val onItemClickedPosition: (Int) -> Any): RecyclerView.ViewHolder(binding.root) {
+    class CategoryViewHolder(private val binding: ListViewHolderBinding, private val onItemClickedPosition: (Int) -> Any): RecyclerView.ViewHolder(binding.root) {
 
         init {
             showShimmer(true)
@@ -37,10 +37,10 @@ class RecyclerViewAdapter(val onItemClickListener: (Category) -> Any): ListAdapt
         }
 
         fun bind(category: Category) {
-            binding.viewHolderTitle.text = category.categoryName
+            binding.viewHolderTitle.text = category.name
 
             Glide.with(binding.root)
-                .load(category.categoryThumb)
+                .load(category.thumb)
                 .error(R.drawable.ic_broken_image)
                 .listener(object: RequestListener<Drawable> {
                     override fun onLoadFailed(
@@ -81,7 +81,7 @@ class RecyclerViewAdapter(val onItemClickListener: (Category) -> Any): ListAdapt
     }
 }
 
-class RecyclerViewDiff: DiffUtil.ItemCallback<Category>() {
+class CategoryDiff: DiffUtil.ItemCallback<Category>() {
     override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean = oldItem.id == newItem.id
     override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean = areItemsTheSame(oldItem, newItem)
 }

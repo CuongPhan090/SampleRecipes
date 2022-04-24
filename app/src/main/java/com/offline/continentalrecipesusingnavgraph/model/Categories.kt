@@ -14,11 +14,11 @@ data class Category(
     val id: String,
 
     @Json(name = "strCategory")
-    val categoryName: String,
+    val name: String,
 
     @Json(name = "strCategoryThumb")
-    val categoryThumb: String,
+    val thumb: String,
 
     @Json(name = "strCategoryDescription")
-    val categoryDescription: String
+    val description: String
 )

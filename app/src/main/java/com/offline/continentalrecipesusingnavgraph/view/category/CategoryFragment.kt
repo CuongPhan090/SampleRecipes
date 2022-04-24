@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
-import com.offline.continentalrecipesusingnavgraph.adapter.RecyclerViewAdapter
+import androidx.navigation.fragment.findNavController
+import com.offline.continentalrecipesusingnavgraph.R
 import com.offline.continentalrecipesusingnavgraph.databinding.FragmentCategoryBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class CategoryFragment : Fragment() {
 
     private lateinit var binding: FragmentCategoryBinding
-    private lateinit var adapter: RecyclerViewAdapter
+    private lateinit var adapter: CategoryAdapter
     private val viewModel: CategoryViewModel by viewModels()
 
     override fun onCreateView(
@@ -30,8 +29,9 @@ class CategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = RecyclerViewAdapter{
-            setFragmentResult("selectedCategory", bundleOf("category" to it))
+        adapter = CategoryAdapter{
+            viewModel.putSelectedCategory(it.name)
+            findNavController().navigate(R.id.action_categoryFragment_to_mealFragment)
         }
         binding.categoryRecyclerView.adapter = adapter
         viewModel.category.observe(viewLifecycleOwner) {

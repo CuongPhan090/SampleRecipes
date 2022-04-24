@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/meal_fragment"
-        android:name="com.offline.continentalrecipesusingnavgraph.view.MealFragment"
+        android:name="com.offline.continentalrecipesusingnavgraph.view.meal.MealFragment"
         android:label="fragment_meal"
         tools:layout="@layout/fragment_meal">
         <action
