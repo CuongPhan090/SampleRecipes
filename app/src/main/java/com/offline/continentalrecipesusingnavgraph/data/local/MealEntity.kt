@@ -15,5 +15,8 @@ data class MealEntity (
     val name: String,
 
     @ColumnInfo(name = "thumb")
-    val thumb: String
+    val thumb: String,
+
+    @ColumnInfo(name = "mealId")
+    val mealId: String
 )

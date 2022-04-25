@@ -16,10 +16,10 @@ import com.offline.continentalrecipesusingnavgraph.R
 import com.offline.continentalrecipesusingnavgraph.databinding.ListViewHolderBinding
 import com.offline.continentalrecipesusingnavgraph.model.Meal
 
-class MealAdapter(val onItemClickListener: (Meal) -> Any): ListAdapter<Meal, MealAdapter.MealViewHolder>(MealDiff()) {
+class MealAdapter(val onItemClickListener: (View, Meal, String) -> Any): ListAdapter<Meal, MealAdapter.MealViewHolder>(MealDiff()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealViewHolder {
-        return MealViewHolder(ListViewHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)) {
-            onItemClickListener(getItem(it))
+        return MealViewHolder(ListViewHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)) { transitionView, position, transitionName ->
+            onItemClickListener(transitionView, getItem(position), transitionName)
         }
     }
 
@@ -27,17 +27,18 @@ class MealAdapter(val onItemClickListener: (Meal) -> Any): ListAdapter<Meal, Mea
         holder.bind(getItem(position))
     }
 
-    class MealViewHolder(private val binding: ListViewHolderBinding, private val onItemClickedPosition: (Int) -> Any): RecyclerView.ViewHolder(binding.root) {
+    class MealViewHolder(private val binding: ListViewHolderBinding, private val onItemClickedPosition: (View, Int, String) -> Any): RecyclerView.ViewHolder(binding.root) {
 
         init {
             showShimmer(true)
             itemView.setOnClickListener{
-                onItemClickedPosition(adapterPosition)
+                onItemClickedPosition(binding.viewHolderBackground, adapterPosition, binding.viewHolderBackground.transitionName)
             }
         }
 
         fun bind(meal: Meal) {
             binding.viewHolderTitle.text = meal.name
+            binding.viewHolderBackground.transitionName = meal.id
 
             Glide.with(binding.root)
                 .load(meal.thumb)

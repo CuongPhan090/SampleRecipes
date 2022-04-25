@@ -17,10 +17,10 @@ import com.offline.continentalrecipesusingnavgraph.data.local.MealEntity
 import com.offline.continentalrecipesusingnavgraph.databinding.ListViewHolderBinding
 import com.offline.continentalrecipesusingnavgraph.model.Meal
 
-class FavoriteAdapter(val onItemClickListener: (MealEntity) -> Any): ListAdapter<MealEntity, FavoriteAdapter.FavoriteViewHolder>(MealEntityDiff()) {
+class FavoriteAdapter(val onItemClickListener: (View, MealEntity, String) -> Any): ListAdapter<MealEntity, FavoriteAdapter.FavoriteViewHolder>(MealEntityDiff()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
-        return FavoriteViewHolder(ListViewHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)) {
-            onItemClickListener(getItem(it))
+        return FavoriteViewHolder(ListViewHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)) {  transitionView, position, transitionName ->
+            onItemClickListener(transitionView, getItem(position), transitionName)
         }
     }
 
@@ -28,17 +28,18 @@ class FavoriteAdapter(val onItemClickListener: (MealEntity) -> Any): ListAdapter
         holder.bind(getItem(position))
     }
 
-    class FavoriteViewHolder(private val binding: ListViewHolderBinding, private val onItemClickedPosition: (Int) -> Any): RecyclerView.ViewHolder(binding.root) {
+    class FavoriteViewHolder(private val binding: ListViewHolderBinding, private val onItemClickedPosition: (View, Int, String) -> Any): RecyclerView.ViewHolder(binding.root) {
 
         init {
             showShimmer(true)
             itemView.setOnClickListener{
-                onItemClickedPosition(adapterPosition)
+                onItemClickedPosition(binding.viewHolderBackground, adapterPosition, binding.viewHolderBackground.transitionName)
             }
         }
 
         fun bind(mealEntity: MealEntity) {
             binding.viewHolderTitle.text = mealEntity.name
+            binding.viewHolderBackground.transitionName = mealEntity.mealId
 
             Glide.with(binding.root)
                 .load(mealEntity.thumb)

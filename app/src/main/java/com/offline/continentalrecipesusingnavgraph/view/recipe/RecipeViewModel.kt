@@ -21,11 +21,6 @@ class RecipeViewModel @Inject constructor(private val mealRepositoryImpl: MealRe
     val favoriteMeals = mealRepositoryImpl.getAllFavoriteMeals()
 
     fun addFavoriteMeal(meal: MealEntity) = viewModelScope.launch {
-//        favoriteMeals.value?.forEach{
-//            if (meal.name == it.name) {
-//                return@launch
-//            }
-//        }
         mealRepositoryImpl.insertMeal(meal)
     }
 

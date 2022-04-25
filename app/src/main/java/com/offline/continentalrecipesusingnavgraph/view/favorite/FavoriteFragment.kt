@@ -7,7 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.offline.continentalrecipesusingnavgraph.R
 import com.offline.continentalrecipesusingnavgraph.databinding.FragmentFavoriteBinding
@@ -32,14 +35,24 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = FavoriteAdapter{
-            viewModel.putSelectedMeal(it.name)
-            findNavController().navigate(R.id.action_favoriteFragment_to_recipeFragment)
+        adapter = FavoriteAdapter{ transitionView, favorite, transitionNameOfNextFragment ->
+            viewModel.putSelectedMeal(favorite.name)
+            findNavController().navigate(
+                R.id.action_favoriteFragment_to_recipeFragment,
+                null,
+                null,
+                FragmentNavigatorExtras(transitionView to transitionNameOfNextFragment))
         }
+
         binding.favoriteRecyclerView.adapter = adapter
 
         viewModel.allFavoriteMeals.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+        }
+
+        postponeEnterTransition()
+        view.doOnPreDraw {
+            startPostponedEnterTransition()
         }
     }
 }

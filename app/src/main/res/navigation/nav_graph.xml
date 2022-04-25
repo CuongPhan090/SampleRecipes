@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/category_fragment"
         android:name="com.offline.continentalrecipesusingnavgraph.view.category.CategoryFragment"
-        android:label="fragment_category"
         tools:layout="@layout/fragment_category">
         <action
             android:id="@+id/action_categoryFragment_to_mealFragment"
@@ -20,7 +19,6 @@
     <fragment
         android:id="@+id/meal_fragment"
         android:name="com.offline.continentalrecipesusingnavgraph.view.meal.MealFragment"
-        android:label="fragment_meal"
         tools:layout="@layout/fragment_meal">
         <action
             android:id="@+id/action_mealFragment_to_recipeFragment"
@@ -29,12 +27,10 @@
     <fragment
         android:id="@+id/recipe_fragment"
         android:name="com.offline.continentalrecipesusingnavgraph.view.recipe.RecipeFragment"
-        android:label="fragment_recipe"
         tools:layout="@layout/fragment_recipe" />
     <fragment
         android:id="@+id/favorite_fragment"
         android:name="com.offline.continentalrecipesusingnavgraph.view.favorite.FavoriteFragment"
-        android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite">
         <action
             android:id="@+id/action_favoriteFragment_to_recipeFragment"
