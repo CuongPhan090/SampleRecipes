@@ -1,17 +1,13 @@
 package com.offline.continentalrecipesusingnavgraph.view.meal
 
 import android.os.Bundle
-import android.transition.TransitionInflater
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.doOnPreDraw
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.offline.continentalrecipesusingnavgraph.R
@@ -45,13 +41,14 @@ class MealFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        adapter = MealAdapter{ transitionView, meal, transitionNameOfNextFragment ->
+        adapter = MealAdapter { transitionView, meal, transitionNameOfNextFragment ->
             viewModel.putSelectedMeal(meal.name)
             findNavController().navigate(
                 R.id.action_mealFragment_to_recipeFragment,
                 null,
                 null,
-                FragmentNavigatorExtras(transitionView to transitionNameOfNextFragment))
+                FragmentNavigatorExtras(transitionView to transitionNameOfNextFragment)
+            )
         }
 
         binding.mealRecyclerView.adapter = adapter

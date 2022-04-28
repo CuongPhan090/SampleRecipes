@@ -27,7 +27,10 @@ interface MealRepository {
 }
 
 @Singleton
-class MealRepositoryImpl @Inject constructor(private val remoteData: RemoteDataImpl, private val localData: LocalDataImpl): MealRepository{
+class MealRepositoryImpl @Inject constructor(
+    private val remoteData: RemoteDataImpl,
+    private val localData: LocalDataImpl
+) : MealRepository {
 
     private val itemClickedMap = mutableMapOf<String, String>()
 

@@ -10,7 +10,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipeViewModel @Inject constructor(private val mealRepositoryImpl: MealRepositoryImpl): ViewModel() {
+class RecipeViewModel @Inject constructor(private val mealRepositoryImpl: MealRepositoryImpl) :
+    ViewModel() {
 
     val selectedMeal = mealRepositoryImpl.getSelectedMeal()
 

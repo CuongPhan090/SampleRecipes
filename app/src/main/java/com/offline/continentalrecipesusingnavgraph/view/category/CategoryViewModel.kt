@@ -7,7 +7,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoryViewModel @Inject constructor(private val mealRepositoryImpl: MealRepositoryImpl): ViewModel() {
+class CategoryViewModel @Inject constructor(private val mealRepositoryImpl: MealRepositoryImpl) :
+    ViewModel() {
 
     val category = liveData {
         emit(mealRepositoryImpl.getCategories())

@@ -15,11 +15,17 @@ import com.bumptech.glide.request.target.Target
 import com.offline.continentalrecipesusingnavgraph.R
 import com.offline.continentalrecipesusingnavgraph.data.local.MealEntity
 import com.offline.continentalrecipesusingnavgraph.databinding.ListViewHolderBinding
-import com.offline.continentalrecipesusingnavgraph.model.Meal
 
-class FavoriteAdapter(val onItemClickListener: (View, MealEntity, String) -> Any): ListAdapter<MealEntity, FavoriteAdapter.FavoriteViewHolder>(MealEntityDiff()) {
+class FavoriteAdapter(val onItemClickListener: (View, MealEntity, String) -> Any) :
+    ListAdapter<MealEntity, FavoriteAdapter.FavoriteViewHolder>(MealEntityDiff()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
-        return FavoriteViewHolder(ListViewHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)) {  transitionView, position, transitionName ->
+        return FavoriteViewHolder(
+            ListViewHolderBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        ) { transitionView, position, transitionName ->
             onItemClickListener(transitionView, getItem(position), transitionName)
         }
     }
@@ -28,12 +34,19 @@ class FavoriteAdapter(val onItemClickListener: (View, MealEntity, String) -> Any
         holder.bind(getItem(position))
     }
 
-    class FavoriteViewHolder(private val binding: ListViewHolderBinding, private val onItemClickedPosition: (View, Int, String) -> Any): RecyclerView.ViewHolder(binding.root) {
+    class FavoriteViewHolder(
+        private val binding: ListViewHolderBinding,
+        private val onItemClickedPosition: (View, Int, String) -> Any
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             showShimmer(true)
-            itemView.setOnClickListener{
-                onItemClickedPosition(binding.viewHolderBackground, adapterPosition, binding.viewHolderBackground.transitionName)
+            itemView.setOnClickListener {
+                onItemClickedPosition(
+                    binding.viewHolderBackground,
+                    adapterPosition,
+                    binding.viewHolderBackground.transitionName
+                )
             }
         }
 
@@ -44,7 +57,7 @@ class FavoriteAdapter(val onItemClickListener: (View, MealEntity, String) -> Any
             Glide.with(binding.root)
                 .load(mealEntity.thumb)
                 .error(R.drawable.ic_broken_image)
-                .listener(object: RequestListener<Drawable> {
+                .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,
                         model: Any?,
@@ -83,7 +96,10 @@ class FavoriteAdapter(val onItemClickListener: (View, MealEntity, String) -> Any
     }
 }
 
-class MealEntityDiff: DiffUtil.ItemCallback<MealEntity>() {
-    override fun areItemsTheSame(oldItem: MealEntity, newItem: MealEntity): Boolean = oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: MealEntity, newItem: MealEntity): Boolean = areItemsTheSame(oldItem, newItem)
+class MealEntityDiff : DiffUtil.ItemCallback<MealEntity>() {
+    override fun areItemsTheSame(oldItem: MealEntity, newItem: MealEntity): Boolean =
+        oldItem.id == newItem.id
+
+    override fun areContentsTheSame(oldItem: MealEntity, newItem: MealEntity): Boolean =
+        areItemsTheSame(oldItem, newItem)
 }

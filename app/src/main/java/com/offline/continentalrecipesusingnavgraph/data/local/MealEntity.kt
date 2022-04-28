@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "meals")
-data class MealEntity (
+data class MealEntity(
 
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)

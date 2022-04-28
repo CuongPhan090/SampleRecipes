@@ -11,7 +11,7 @@ interface LocalData {
     fun getAllMeals(): LiveData<List<MealEntity>>
 }
 
-class LocalDataImpl @Inject constructor(private val mealDao: MealDao): LocalData {
+class LocalDataImpl @Inject constructor(private val mealDao: MealDao) : LocalData {
     override suspend fun insertMeal(meal: MealEntity) {
         mealDao.insertMeal(meal)
     }

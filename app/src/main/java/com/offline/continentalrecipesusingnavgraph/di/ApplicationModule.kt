@@ -15,7 +15,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -28,7 +27,7 @@ class ApplicationModule {
     fun provideBaseUrl(): String = "https://www.themealdb.com/api/json/v1/1/"
 
     @Provides
-    fun provideInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply{
+    fun provideInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 

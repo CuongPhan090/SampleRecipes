@@ -16,9 +16,16 @@ import com.offline.continentalrecipesusingnavgraph.R
 import com.offline.continentalrecipesusingnavgraph.databinding.ListViewHolderBinding
 import com.offline.continentalrecipesusingnavgraph.model.Category
 
-class CategoryAdapter(val onItemClickListener: (Category) -> Any): ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(CategoryDiff()) {
+class CategoryAdapter(val onItemClickListener: (Category) -> Any) :
+    ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(CategoryDiff()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        return CategoryViewHolder(ListViewHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)) {
+        return CategoryViewHolder(
+            ListViewHolderBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        ) {
             onItemClickListener(getItem(it))
         }
     }
@@ -27,11 +34,14 @@ class CategoryAdapter(val onItemClickListener: (Category) -> Any): ListAdapter<C
         holder.bind(getItem(position))
     }
 
-    class CategoryViewHolder(private val binding: ListViewHolderBinding, private val onItemClickedPosition: (Int) -> Any): RecyclerView.ViewHolder(binding.root) {
+    class CategoryViewHolder(
+        private val binding: ListViewHolderBinding,
+        private val onItemClickedPosition: (Int) -> Any
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             showShimmer(true)
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 onItemClickedPosition(adapterPosition)
             }
         }
@@ -42,7 +52,7 @@ class CategoryAdapter(val onItemClickListener: (Category) -> Any): ListAdapter<C
             Glide.with(binding.root)
                 .load(category.thumb)
                 .error(R.drawable.ic_broken_image)
-                .listener(object: RequestListener<Drawable> {
+                .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,
                         model: Any?,
@@ -81,7 +91,10 @@ class CategoryAdapter(val onItemClickListener: (Category) -> Any): ListAdapter<C
     }
 }
 
-class CategoryDiff: DiffUtil.ItemCallback<Category>() {
-    override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean = oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean = areItemsTheSame(oldItem, newItem)
+class CategoryDiff : DiffUtil.ItemCallback<Category>() {
+    override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean =
+        oldItem.id == newItem.id
+
+    override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean =
+        areItemsTheSame(oldItem, newItem)
 }

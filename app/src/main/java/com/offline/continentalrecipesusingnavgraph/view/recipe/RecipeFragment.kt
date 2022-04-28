@@ -3,14 +3,12 @@ package com.offline.continentalrecipesusingnavgraph.view.recipe
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.transition.TransitionInflater
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.core.view.doOnPreDraw
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -31,7 +29,8 @@ class RecipeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        val transition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         sharedElementEnterTransition = transition
         sharedElementReturnTransition = transition
     }
@@ -56,20 +55,31 @@ class RecipeFragment : Fragment() {
             val recipe = it.recipes[0]
             setupView(recipe)
             binding.recipeImage.transitionName = recipe.idMeal
-            binding.favoriteFab.setOnClickListener{
-                val mealEntity: MealEntity = getMealEntityIfExist(recipe)
+            binding.favoriteFab.setOnClickListener {
+                val mealEntity: MealEntity = getExistEntityOrNewOne(recipe)
                 if (isFavorite(recipe)) {
-                    binding.favoriteFab.setImageDrawable(getDrawable(binding.root.context, R.drawable.ic_hollow_favorite))
+                    binding.favoriteFab.setImageDrawable(
+                        getDrawable(
+                            binding.root.context,
+                            R.drawable.ic_hollow_favorite
+                        )
+                    )
                     viewModel.removeFavoriteMeal(mealEntity)
                 } else {
-                    binding.favoriteFab.setImageDrawable(getDrawable(binding.root.context, R.drawable.ic_dense_favorite))
+                    binding.favoriteFab.setImageDrawable(
+                        getDrawable(
+                            binding.root.context,
+                            R.drawable.ic_dense_favorite
+                        )
+                    )
                     viewModel.addFavoriteMeal(mealEntity)
                 }
             }
         }
     }
 
-    private fun getMealEntityIfExist(recipe: Recipe): MealEntity {
+
+    private fun getExistEntityOrNewOne(recipe: Recipe): MealEntity {
         favoriteMeal.forEach {
             if (it.name == recipe.name) {
                 return it
@@ -79,7 +89,7 @@ class RecipeFragment : Fragment() {
     }
 
     private fun isFavorite(currentRecipe: Recipe): Boolean {
-        favoriteMeal.forEach{ mealEntity ->
+        favoriteMeal.forEach { mealEntity ->
             if (currentRecipe.name == mealEntity.name) {
                 return true
             }
@@ -96,9 +106,19 @@ class RecipeFragment : Fragment() {
 
     private fun updateFavoriteFab(recipe: Recipe) {
         if (isFavorite(recipe)) {
-            binding.favoriteFab.setImageDrawable(getDrawable(binding.root.context, R.drawable.ic_dense_favorite))
+            binding.favoriteFab.setImageDrawable(
+                getDrawable(
+                    binding.root.context,
+                    R.drawable.ic_dense_favorite
+                )
+            )
         } else {
-            binding.favoriteFab.setImageDrawable(getDrawable(binding.root.context, R.drawable.ic_hollow_favorite))
+            binding.favoriteFab.setImageDrawable(
+                getDrawable(
+                    binding.root.context,
+                    R.drawable.ic_hollow_favorite
+                )
+            )
 
         }
     }
@@ -150,7 +170,7 @@ class RecipeFragment : Fragment() {
     private fun loadImage(url: String?) {
         Glide.with(this)
             .load(url)
-            .listener(object: RequestListener<Drawable>{
+            .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?,
                     model: Any?,

@@ -11,7 +11,7 @@ interface RemoteData {
     suspend fun getRecipe(selectedMeal: String): Recipes
 }
 
-class RemoteDataImpl @Inject constructor(private val apiClient: ApiClient): RemoteData{
+class RemoteDataImpl @Inject constructor(private val apiClient: ApiClient) : RemoteData {
     override suspend fun getCategories(): Categories =
         apiClient.getCategories()
 

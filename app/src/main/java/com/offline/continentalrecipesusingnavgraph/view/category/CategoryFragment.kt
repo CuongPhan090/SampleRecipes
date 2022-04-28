@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -39,13 +42,32 @@ class CategoryFragment : Fragment() {
             .setPopExitAnim(R.anim.slide_out_to_right)
             .build()
 
-        adapter = CategoryAdapter{
+        adapter = CategoryAdapter {
             viewModel.putSelectedCategory(it.name)
-            findNavController().navigate(R.id.action_categoryFragment_to_mealFragment, null, navOptions)
+            findNavController().navigate(
+                R.id.action_categoryFragment_to_mealFragment,
+                null,
+                navOptions
+            )
         }
         binding.categoryRecyclerView.adapter = adapter
         viewModel.category.observe(viewLifecycleOwner) {
             adapter.submitList(it.categories)
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            AlertDialog.Builder(view.context)
+                .setTitle("Are you sure you want to exit?")
+                .setPositiveButton("Exit") { dialog, position ->
+                    remove()
+                    requireActivity().onBackPressed()
+                }
+                .setNegativeButton("Cancel") { dialog, position ->
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
+        }
     }
+
 }

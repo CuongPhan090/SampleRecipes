@@ -10,4 +10,5 @@
     <string name="ingredients">Ingredients</string>
     <string name="instructions">Instructions</string>
     <string name="category_title">Category</string>
+    <string name="rate_uri"><![CDATA[https://play.google.com/store/apps/details?id=com.buzzfeed.tasty&hl=en_US&gl=US]]></string>
 </resources>
