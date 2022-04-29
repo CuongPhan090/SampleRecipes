@@ -3,5 +3,8 @@
     <style name="Theme.MyApplication" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_pepper</item>
+        <item name="android:windowSplashScreenBackground">@color/black</item>
     </style>
+
 </resources>
