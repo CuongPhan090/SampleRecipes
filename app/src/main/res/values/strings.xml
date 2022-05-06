@@ -11,4 +11,7 @@
     <string name="instructions">Instructions</string>
     <string name="category_title">Category</string>
     <string name="rate_uri"><![CDATA[https://play.google.com/store/apps/details?id=com.buzzfeed.tasty&hl=en_US&gl=US]]></string>
+    <string name="qr_scan">QR Scan</string>
+    <string name="qr_error_message">Invalid barcode, please try with different barcode</string>
+    <string name="reticle_view_content_description">Place the barcode under your device, slowly move the device towards or away the barcode until you hear an audio confirmation</string>
 </resources>

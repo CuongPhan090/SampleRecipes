@@ -13,7 +13,7 @@ import javax.inject.Inject
 class RecipeViewModel @Inject constructor(private val mealRepositoryImpl: MealRepositoryImpl) :
     ViewModel() {
 
-    val selectedMeal = mealRepositoryImpl.getSelectedMeal()
+    var selectedMeal = mealRepositoryImpl.getSelectedMeal()
 
     val recipe = liveData {
         emit(mealRepositoryImpl.getRecipe(selectedMeal))

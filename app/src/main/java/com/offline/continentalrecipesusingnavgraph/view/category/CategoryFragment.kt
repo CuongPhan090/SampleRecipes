@@ -1,9 +1,7 @@
 package com.offline.continentalrecipesusingnavgraph.view.category
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
@@ -12,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.onNavDestinationSelected
 import com.offline.continentalrecipesusingnavgraph.R
 import com.offline.continentalrecipesusingnavgraph.databinding.FragmentCategoryBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,6 +28,7 @@ class CategoryFragment : Fragment() {
     ): View {
         binding = FragmentCategoryBinding.inflate(inflater)
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.category_title)
+        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -70,4 +70,12 @@ class CategoryFragment : Fragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_options, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return item.onNavDestinationSelected(findNavController()) || super.onOptionsItemSelected(item)
+    }
 }

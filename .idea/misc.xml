@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/drawable/ic_boy.xml" value="0.2355" />
         <entry key="app/src/main/res/drawable/ic_broken_image.xml" value="0.214" />
         <entry key="app/src/main/res/drawable/ic_pepper.xml" value="0.2355" />
+        <entry key="app/src/main/res/drawable/ic_qr_scan.xml" value="0.2355" />
         <entry key="app/src/main/res/drawable/splash_creen.xml" value="0.18" />
         <entry key="app/src/main/res/drawable/splash_screen.xml" value="0.12" />
         <entry key="app/src/main/res/layout/activity_entry.xml" value="0.18" />
@@ -21,12 +22,15 @@
         <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.37916666666666665" />
         <entry key="app/src/main/res/layout/fragment_meal.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_recipe.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_scanner.xml" value="0.25" />
         <entry key="app/src/main/res/layout/list_view_holder.xml" value="0.37916666666666665" />
         <entry key="app/src/main/res/layout/list_view_holder_skeleton.xml" value="0.37916666666666665" />
         <entry key="app/src/main/res/layout/meal_view_holder.xml" value="0.37916666666666665" />
         <entry key="app/src/main/res/layout/navdrawer_header.xml" value="0.18645833333333334" />
         <entry key="app/src/main/res/layout/recipe_detail_card.xml" value="0.37916666666666665" />
+        <entry key="app/src/main/res/menu/menu_options.xml" value="0.37333333333333335" />
         <entry key="app/src/main/res/menu/navdrawer_menu.xml" value="0.37916666666666665" />
+        <entry key="app/src/main/res/menu/options_menu.xml" value="0.37916666666666665" />
         <entry key="app/src/main/res/menu/side_nav_menu.xml" value="0.37916666666666665" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2355" />
       </map>

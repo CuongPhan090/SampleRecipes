@@ -6,10 +6,14 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -26,6 +30,7 @@ class RecipeFragment : Fragment() {
     private lateinit var binding: FragmentRecipeBinding
     private val viewModel: RecipeViewModel by viewModels()
     private lateinit var favoriteMeal: List<MealEntity>
+    private val args: RecipeFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +45,10 @@ class RecipeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRecipeBinding.inflate(layoutInflater)
+        // this check whether fragment is opened from deeplink?
+        args.name?.let {
+            viewModel.selectedMeal = it
+        }
         (activity as AppCompatActivity).supportActionBar?.title = viewModel.selectedMeal
         postponeEnterTransition()
         return binding.root
@@ -50,7 +59,6 @@ class RecipeFragment : Fragment() {
         viewModel.favoriteMeals.observe(viewLifecycleOwner) {
             favoriteMeal = it
         }
-
         viewModel.recipe.observe(viewLifecycleOwner) {
             val recipe = it.recipes[0]
             setupView(recipe)
