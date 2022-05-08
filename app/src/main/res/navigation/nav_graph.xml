@@ -3,12 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/category_fragment">
+    app:startDestination="@id/login_fragment">
 
     <fragment
         android:id="@+id/category_fragment"
         android:name="com.offline.continentalrecipesusingnavgraph.view.category.CategoryFragment"
         tools:layout="@layout/fragment_category">
+        <argument
+            android:name="user_token"
+            app:argType="string" />
         <action
             android:id="@+id/action_categoryFragment_to_mealFragment"
             app:destination="@id/meal_fragment" />
@@ -33,13 +36,14 @@
         android:id="@+id/recipe_fragment"
         android:name="com.offline.continentalrecipesusingnavgraph.view.recipe.RecipeFragment"
         tools:layout="@layout/fragment_recipe">
-        <deepLink app:uri="offline://meal/{name}"
-            app:action="ACTION_VIEW"/>
+        <deepLink
+            app:action="ACTION_VIEW"
+            app:uri="offline://meal/{name}" />
         <argument
             android:name="name"
-            app:nullable="true"
             android:defaultValue="@null"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
     <fragment
@@ -55,4 +59,14 @@
         android:id="@+id/scanner_fragment"
         android:name="com.offline.continentalrecipesusingnavgraph.view.scanner.ScannerFragment"
         tools:layout="@layout/fragment_scanner" />
+
+    <fragment
+        android:id="@+id/login_fragment"
+        android:name="com.offline.continentalrecipesusingnavgraph.view.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_category_fragment"
+            app:destination="@id/category_fragment" />
+    </fragment>
 </navigation>

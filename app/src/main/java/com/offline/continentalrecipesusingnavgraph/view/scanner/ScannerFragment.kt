@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -26,7 +25,10 @@ import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 import com.offline.continentalrecipesusingnavgraph.R
 import com.offline.continentalrecipesusingnavgraph.databinding.FragmentScannerBinding
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.concurrent.Executors
 
 /**
@@ -50,13 +52,18 @@ class ScannerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // permission callback
-        requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                bindCameraUseCase()
-            } else {
-                Snackbar.make(view, "Required camera permission to run QR scanner", Snackbar.LENGTH_LONG).show()
+        requestPermissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+                if (isGranted) {
+                    bindCameraUseCase()
+                } else {
+                    Snackbar.make(
+                        view,
+                        "Required camera permission to run QR scanner",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
             }
-        }
 
         if (isCameraPermissionAlreadyGranted()) {
             bindCameraUseCase()
@@ -64,7 +71,7 @@ class ScannerFragment : Fragment() {
     }
 
     private fun bindCameraUseCase() {
-         cameraX = ProcessCameraProvider.getInstance(binding.root.context).apply{
+        cameraX = ProcessCameraProvider.getInstance(binding.root.context).apply {
             addListener({
                 val previewUseCase = Preview.Builder().build().also {
                     it.setSurfaceProvider(binding.qrPreview.surfaceProvider)
@@ -87,7 +94,7 @@ class ScannerFragment : Fragment() {
 
         val scanner = BarcodeScanning.getClient(options)
         val analysisImage = ImageAnalysis.Builder()
-            .build().apply{
+            .build().apply {
                 this.setAnalyzer(
                     Executors.newSingleThreadExecutor()
                 ) { imageProxy ->
@@ -105,14 +112,14 @@ class ScannerFragment : Fragment() {
             )
             barcodeScanner.process(inputImage)
                 .addOnSuccessListener { barcodeList ->
-                    barcodeList.getOrNull(0)?.rawValue?.let{
+                    barcodeList.getOrNull(0)?.rawValue?.let {
                         var uri = it
                         if (it.endsWith("\n")) {
-                           uri = it.subSequence(0, it.length-2) as String
+                            uri = it.subSequence(0, it.length - 2) as String
                         }
                         findNavController().navigate(Uri.parse(uri))
-                        }
                     }
+                }
                 .addOnCompleteListener {
                     // When the image is from CameraX analysis use case, must
                     // call image.close() on received images when finished

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.onNavDestinationSelected
 import com.offline.continentalrecipesusingnavgraph.R
 import com.offline.continentalrecipesusingnavgraph.databinding.FragmentCategoryBinding
@@ -19,8 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class CategoryFragment : Fragment() {
 
     private lateinit var binding: FragmentCategoryBinding
-    private lateinit var adapter: CategoryAdapter
     private val viewModel: CategoryViewModel by viewModels()
+    private val categoryArgs: CategoryFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +30,7 @@ class CategoryFragment : Fragment() {
         binding = FragmentCategoryBinding.inflate(inflater)
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.category_title)
         setHasOptionsMenu(true)
+
         return binding.root
     }
 
@@ -42,7 +44,7 @@ class CategoryFragment : Fragment() {
             .setPopExitAnim(R.anim.slide_out_to_right)
             .build()
 
-        adapter = CategoryAdapter {
+        val adapter = CategoryAdapter {
             viewModel.putSelectedCategory(it.name)
             findNavController().navigate(
                 R.id.action_categoryFragment_to_mealFragment,
@@ -58,16 +60,18 @@ class CategoryFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             AlertDialog.Builder(view.context)
                 .setTitle("Are you sure you want to exit?")
-                .setPositiveButton("Exit") { dialog, position ->
+                .setPositiveButton("Exit") { dialog, _ ->
                     remove()
                     requireActivity().onBackPressed()
                 }
-                .setNegativeButton("Cancel") { dialog, position ->
+                .setNegativeButton("Cancel") { dialog, _ ->
                     dialog.dismiss()
                 }
                 .create()
                 .show()
         }
+
+        Toast.makeText(view.context, categoryArgs.userToken, Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -76,6 +80,8 @@ class CategoryFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return item.onNavDestinationSelected(findNavController()) || super.onOptionsItemSelected(item)
+        return item.onNavDestinationSelected(findNavController()) || super.onOptionsItemSelected(
+            item
+        )
     }
 }

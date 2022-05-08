@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.login.LoginFragment">
+
+    <ImageView
+        android:id="@+id/apple_logo"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="150dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_apple_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/edit_text_margin"
+        android:layout_marginTop="@dimen/username_edit_text_top_margin"
+        android:layout_marginEnd="@dimen/edit_text_margin"
+        android:autofillHints="name"
+        android:drawableEnd="@drawable/ic_face_recognition"
+        android:hint="@string/username"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/apple_logo" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/edit_text_margin"
+        android:layout_marginEnd="@dimen/edit_text_margin"
+        android:autofillHints="password"
+        android:drawableEnd="@drawable/ic_eye_disable"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/username" />
+
+    <CheckBox
+        android:id="@+id/check_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/check_box_margin"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/password" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_username"
+        app:layout_constraintBottom_toBottomOf="@id/check_box"
+        app:layout_constraintStart_toEndOf="@id/check_box"
+        app:layout_constraintTop_toTopOf="@id/check_box" />
+
+    <Button
+        android:id="@+id/sign_in"
+        android:enabled="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/button_margin"
+        android:text="@string/sign_in"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/check_box" />
+
+    <TextView
+        android:id="@+id/reset_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/reset_password_margin"
+        android:text="@string/forgot_your_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sign_in" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/space"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/divider_margin"
+        app:dividerColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@id/reset_password"
+        app:layout_constraintStart_toStartOf="@id/reset_password"
+        app:layout_constraintTop_toBottomOf="@id/reset_password" />
+
+    <TextView
+        android:id="@+id/new_member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/new_member_sign_up"
+        app:layout_constraintEnd_toStartOf="@id/sign_up"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/space" />
+
+    <TextView
+        android:id="@+id/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/sign_up"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/new_member"
+        app:layout_constraintTop_toBottomOf="@id/space" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,4 +14,12 @@
     <string name="qr_scan">QR Scan</string>
     <string name="qr_error_message">Invalid barcode, please try with different barcode</string>
     <string name="reticle_view_content_description">Place the barcode under your device, slowly move the device towards or away the barcode until you hear an audio confirmation</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="save_username">Save username</string>
+    <string name="sign_in">Sign In</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="new_member_sign_up">New member?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_in_failed_message">We do not recognize your username and/or password. Please try again</string>
 </resources>

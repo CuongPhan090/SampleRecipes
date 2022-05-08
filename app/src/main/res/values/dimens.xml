@@ -30,4 +30,10 @@
     <dimen name="navdrawer_header_height">200dp</dimen>
     <dimen name="favorite_fab_end_margin">10dp</dimen>
     <dimen name="card_view_height">250dp</dimen>
+    <dimen name="edit_text_margin">16dp</dimen>
+    <dimen name="check_box_margin">16dp</dimen>
+    <dimen name="button_margin">16dp</dimen>
+    <dimen name="divider_margin">8dp</dimen>
+    <dimen name="reset_password_margin">8dp</dimen>
+    <dimen name="username_edit_text_top_margin">48dp</dimen>
 </resources>
