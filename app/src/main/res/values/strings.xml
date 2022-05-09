@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">ContinentalRecipesUsingNavGraph</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="recipes">Recipes</string>
     <string name="favorite">Favorite</string>
@@ -17,9 +16,17 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="save_username">Save username</string>
-    <string name="sign_in">Sign In</string>
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="new_member_sign_up">New member?</string>
-    <string name="sign_up">Sign up</string>
+    <string name="sign_up">" Sign up"</string>
     <string name="sign_in_failed_message">We do not recognize your username and/or password. Please try again</string>
+    <string name="register_greeting">Let\'s get you started</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="email_address">Email Address</string>
+    <string name="full_name">Full name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="register">Register</string>
+    <string name="log_in">" Log in"</string>
+    <string name="sign_in">Sign In</string>
 </resources>

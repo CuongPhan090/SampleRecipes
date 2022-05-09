@@ -28,6 +28,7 @@
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_meal.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_recipe.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_scanner.xml" value="0.25" />
         <entry key="app/src/main/res/layout/list_view_holder.xml" value="0.37916666666666665" />
         <entry key="app/src/main/res/layout/list_view_holder_skeleton.xml" value="0.37916666666666665" />

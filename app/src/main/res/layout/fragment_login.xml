@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.login.LoginFragment">
+    tools:context=".view.authentication.LoginFragment">
 
     <ImageView
         android:id="@+id/apple_logo"
@@ -60,8 +60,7 @@
             android:layout_height="match_parent"
             android:autofillHints="password"
             android:hint="@string/password"
-            android:inputType="textPassword"
-            android:tag="ic_eye" />
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
@@ -128,7 +127,6 @@
         android:id="@+id/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/sign_up"
         android:textStyle="bold"

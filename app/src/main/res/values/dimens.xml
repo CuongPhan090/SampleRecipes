@@ -36,4 +36,6 @@
     <dimen name="divider_margin">8dp</dimen>
     <dimen name="reset_password_margin">8dp</dimen>
     <dimen name="username_edit_text_top_margin">48dp</dimen>
+    <dimen name="text_view_margin_8dp">8dp</dimen>
+    <dimen name="text_view_margin_16dp">16dp</dimen>
 </resources>
