@@ -54,8 +54,12 @@ class LoginFragment : Fragment() {
             }
         }
 
-        binding.signUp.setOnClickListener{
+        binding.signUp.setOnClickListener {
             findNavController().navigate(R.id.action_login_fragment_to_registerFragment)
+        }
+
+        binding.resetPassword.setOnClickListener {
+            findNavController().navigate(R.id.action_login_fragment_to_resetPasswordFragment)
         }
 
         textWatcher = object: TextWatcher{
