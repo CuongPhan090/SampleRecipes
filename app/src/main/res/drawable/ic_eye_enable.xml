@@ -4,8 +4,8 @@
     android:viewportWidth="48"
     android:viewportHeight="48">
     <group
-        android:pivotX="24"
-        android:pivotY="24"
+        android:pivotX="20"
+        android:pivotY="15"
         android:scaleX="0.5"
         android:scaleY="0.5">
   <path

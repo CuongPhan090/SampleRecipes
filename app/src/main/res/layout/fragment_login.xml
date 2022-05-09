@@ -17,34 +17,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/username"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/username_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/edit_text_margin"
         android:layout_marginTop="@dimen/username_edit_text_top_margin"
         android:layout_marginEnd="@dimen/edit_text_margin"
-        android:autofillHints="name"
-        android:drawableEnd="@drawable/ic_face_recognition"
-        android:hint="@string/username"
-        android:inputType="text"
+        app:endIconDrawable="@drawable/ic_face_recognition"
+        app:endIconMode="custom"
+        app:endIconTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/apple_logo" />
+        app:layout_constraintTop_toBottomOf="@id/apple_logo">
 
-    <EditText
-        android:id="@+id/password"
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autofillHints="name"
+            android:hint="@string/username"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/edit_text_margin"
         android:layout_marginEnd="@dimen/edit_text_margin"
-        android:autofillHints="password"
-        android:drawableEnd="@drawable/ic_eye_disable"
-        android:hint="@string/password"
-        android:inputType="textPassword"
+        app:endIconDrawable="@drawable/password_visibility_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/username" />
+        app:layout_constraintTop_toBottomOf="@id/username_layout"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@null">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autofillHints="password"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:tag="ic_eye" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
         android:id="@+id/check_box"
@@ -53,7 +71,7 @@
         android:layout_marginStart="@dimen/check_box_margin"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password" />
+        app:layout_constraintTop_toBottomOf="@id/password_layout" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -65,10 +83,10 @@
 
     <Button
         android:id="@+id/sign_in"
-        android:enabled="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/button_margin"
+        android:enabled="false"
         android:text="@string/sign_in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,9 +96,9 @@
         android:id="@+id/reset_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:layout_marginTop="@dimen/reset_password_margin"
         android:text="@string/forgot_your_password"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sign_in" />
