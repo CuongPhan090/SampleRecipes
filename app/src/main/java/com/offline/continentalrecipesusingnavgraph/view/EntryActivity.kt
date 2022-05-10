@@ -1,12 +1,17 @@
 package com.offline.continentalrecipesusingnavgraph.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.MenuItem
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.FragmentResultOwner
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -41,7 +46,17 @@ class EntryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         setupNavigationDrawer(navController)
 
         binding.navView.setNavigationItemSelectedListener(this)
+
     }
+
+    @SuppressLint("SetTextI18n")
+    override fun onStart() {
+        super.onStart()
+        supportFragmentManager.setFragmentResultListener("emailAddress", this) { _, bundle ->
+            findViewById<TextView>(R.id.navdrawer_textview).text = "${bundle.getString("email")} Recipes"
+        }
+    }
+
 
     // display the up button if not top destination and hamburger icon if it is top destination
     // set the action bar title based on destination's label

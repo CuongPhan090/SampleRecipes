@@ -19,7 +19,6 @@
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="new_member_sign_up">New member?</string>
     <string name="sign_up">" Sign up"</string>
-    <string name="sign_in_failed_message">We do not recognize your username and/or password. Please try again</string>
     <string name="register_greeting">Let\'s get you started</string>
     <string name="confirm_password">Confirm password</string>
     <string name="email_address">Email Address</string>

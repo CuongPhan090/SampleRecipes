@@ -36,7 +36,7 @@
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:autofillHints="name"
+            android:autofillHints="emailAddress"
             android:hint="@string/username"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -99,6 +99,7 @@
         android:layout_marginTop="@dimen/reset_password_margin"
         android:text="@string/forgot_your_password"
         android:textStyle="bold"
+        android:textSize="@dimen/text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sign_in" />
@@ -118,6 +119,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textSize="@dimen/text_size"
         android:text="@string/new_member_sign_up"
         app:layout_constraintEnd_toStartOf="@id/sign_up"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -130,6 +132,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/sign_up"
+        android:textSize="@dimen/text_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/new_member"

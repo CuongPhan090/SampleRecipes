@@ -31,6 +31,7 @@
         android:autofillHints="emailAddress"
         android:hint="@string/email_address"
         android:inputType="textEmailAddress"
+        android:maxEms="50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/register_text_view" />
@@ -73,6 +74,7 @@
         android:autofillHints="name"
         android:hint="@string/full_name"
         android:inputType="textPersonName"
+        android:maxEms="50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/confirmed_password" />
@@ -86,6 +88,7 @@
         android:autofillHints="phone"
         android:hint="@string/phone_number"
         android:inputType="phone"
+        android:maxEms="20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/full_name" />
@@ -108,6 +111,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="@dimen/text_view_margin_16dp"
         android:text="@string/already_have_an_account"
+        android:textSize="@dimen/text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/sign_in"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -120,6 +124,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="@dimen/text_view_margin_16dp"
         android:text="@string/log_in"
+        android:textSize="@dimen/text_size"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

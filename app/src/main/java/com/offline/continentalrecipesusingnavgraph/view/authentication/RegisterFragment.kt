@@ -8,9 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.offline.continentalrecipesusingnavgraph.R
 import com.offline.continentalrecipesusingnavgraph.databinding.FragmentRegisterBinding
 import com.offline.continentalrecipesusingnavgraph.uishared.ProgressAlertDialog
@@ -43,10 +46,12 @@ class RegisterFragment : Fragment() {
             progressAlertDialog.startLoadingDialog()
             auth.createUserWithEmailAndPassword(binding.email.text.toString(), binding.password.text.toString())
                 .addOnCompleteListener {
-
                     if (it.isSuccessful) {
-                        val userToken = it.result?.user?.getIdToken(false)?.result?.token
-                        findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToCategoryFragment(userToken))
+                        it.result?.user?.let { firebaseUser ->
+                            val userToken = firebaseUser.getIdToken(false).result?.token
+                            requireActivity().supportFragmentManager.setFragmentResult("emailAddress", bundleOf("email" to firebaseUser.email))
+                            findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToCategoryFragment(userToken))
+                        }
                     } else {
                         AlertDialog.Builder(view.context)
                             .setMessage(it.exception?.message)

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -39,18 +40,22 @@ class LoginFragment : Fragment() {
             auth.signInWithEmailAndPassword(
                 binding.username.text.toString(),
                 binding.password.text.toString()
-            ).addOnSuccessListener {
-                val userToken = it.user?.getIdToken(false)?.result?.token
-                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToCategoryFragment(userToken))
-            }
-            .addOnFailureListener {
-                AlertDialog.Builder(view.context)
-                    .setMessage(getString(R.string.sign_in_failed_message))
-                    .setPositiveButton("Ok") { dialog, _ ->
-                        dialog.dismiss()
+            ).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    it.result?.user?.let { firebaseUser ->
+                        val userToken = firebaseUser.getIdToken(false).result?.token
+                        requireActivity().supportFragmentManager.setFragmentResult("emailAddress", bundleOf("email" to firebaseUser.email))
+                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToCategoryFragment(userToken))
                     }
-                    .create()
-                    .show()
+                } else {
+                    AlertDialog.Builder(view.context)
+                        .setMessage(it.exception?.message)
+                        .setPositiveButton("Ok") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .create()
+                        .show()
+                }
             }
         }
 
