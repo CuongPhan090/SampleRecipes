@@ -1,5 +1,7 @@
 package com.offline.continentalrecipesusingnavgraph.view.authentication
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Editable
@@ -26,6 +28,7 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private lateinit var textWatcher: TextWatcher
     private var auth: FirebaseAuth = Firebase.auth
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +36,7 @@ class LoginFragment : Fragment() {
     ): View {
         binding = FragmentLoginBinding.inflate(inflater)
         (activity as AppCompatActivity).supportActionBar?.hide()
-
+        sharedPref = requireActivity().getSharedPreferences("credential", Context.MODE_PRIVATE)
         return binding.root
     }
 
@@ -42,26 +45,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.signIn.setOnClickListener {
-            auth.signInWithEmailAndPassword(
-                binding.username.text.toString(),
-                binding.password.text.toString()
-            ).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    it.result?.user?.let { firebaseUser ->
-                        val userToken = firebaseUser.getIdToken(false).result?.token
-                        requireActivity().supportFragmentManager.setFragmentResult("emailAddress", bundleOf("email" to firebaseUser.email))
-                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToCategoryFragment(userToken))
-                    }
-                } else {
-                    AlertDialog.Builder(view.context)
-                        .setMessage(it.exception?.message)
-                        .setPositiveButton("Ok") { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                        .create()
-                        .show()
-                }
-            }
+            authenticateByFirebase(binding.username.text.toString(), binding.password.text.toString())
         }
 
         binding.signUp.setOnClickListener {
@@ -72,16 +56,18 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_login_fragment_to_resetPasswordFragment)
         }
 
+        binding.usernameLayout.setEndIconOnClickListener {
+            authenticateByFaceId()
+        }
+
         if (context?.packageManager?.hasSystemFeature(PackageManager.FEATURE_FACE) == false) {
             binding.usernameLayout.isEndIconVisible = false
+        }
+
+        if (sharedPref.getBoolean("isLogIn", false)) {
+            authenticateByFaceId()
         } else {
-            binding.usernameLayout.setEndIconOnClickListener {
-                if (biometricAvailable()) {
-                    promptAuthenticatorDialog()
-                } else {
-                    Toast.makeText(binding.root.context, "The device has not set up FaceId.", Toast.LENGTH_SHORT).show()
-                }
-            }
+            binding.usernameLayout.isEndIconVisible = false
         }
 
         textWatcher = object: TextWatcher{
@@ -111,16 +97,55 @@ class LoginFragment : Fragment() {
 
     }
 
+    private fun authenticateByFaceId() {
+        if (biometricAvailable()) {
+            promptAuthenticatorDialog()
+        } else {
+            Toast.makeText(binding.root.context, "The device has not set up FaceId.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun authenticateByFirebase(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    if (!sharedPref.getBoolean("isLogIn", false)) {
+                        sharedPref.edit().apply{
+                            putString("email",  email)
+                            putString("password", password)
+                            putBoolean("isLogIn", true)
+                        }.apply()
+                    }
+
+                it.result?.user?.let { firebaseUser ->
+                    val userToken = firebaseUser.getIdToken(false).result?.token
+                    requireActivity().supportFragmentManager.setFragmentResult("emailAddress", bundleOf("email" to firebaseUser.email))
+                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToCategoryFragment(userToken))
+                }
+            } else {
+                AlertDialog.Builder(binding.root.context)
+                    .setMessage(it.exception?.message)
+                    .setPositiveButton("Ok") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .create()
+                    .show()
+            }
+        }
+    }
+
     private fun promptAuthenticatorDialog() {
         val biometricPrompt = BiometricPrompt(this,object: BiometricPrompt.AuthenticationCallback(){
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
-                Toast.makeText(binding.root.context, "Success", Toast.LENGTH_SHORT).show()
+                authenticateByFirebase(
+                    sharedPref.getString("email", "") ?: "",
+                    sharedPref.getString("password", "") ?: "")
             }
 
             override fun onAuthenticationFailed() {
                 super.onAuthenticationFailed()
-                Toast.makeText(binding.root.context, "FaceId is not recognized", Toast.LENGTH_SHORT).show()
+                Toast.makeText(binding.root.context, "Face not recognized, please try again.", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -137,7 +162,7 @@ class LoginFragment : Fragment() {
 
     private fun biometricAvailable(): Boolean {
         val biometricManager = BiometricManager.from(binding.root.context)
-        return biometricManager.canAuthenticate(BIOMETRIC_WEAK) ==  BiometricManager.BIOMETRIC_SUCCESS
+        return biometricManager.canAuthenticate(BIOMETRIC_WEAK) == BiometricManager.BIOMETRIC_SUCCESS
     }
 
     private fun validateUserInput(isUsernameValid: Boolean, isPasswordValid: Boolean) {

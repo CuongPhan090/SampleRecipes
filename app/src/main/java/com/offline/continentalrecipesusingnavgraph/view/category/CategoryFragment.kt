@@ -70,7 +70,7 @@ class CategoryFragment : Fragment() {
                 .create()
                 .show()
         }
-         Toast.makeText(view.context, categoryArgs.userToken, Toast.LENGTH_SHORT).show()
+        // Toast.makeText(view.context, categoryArgs.userToken, Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

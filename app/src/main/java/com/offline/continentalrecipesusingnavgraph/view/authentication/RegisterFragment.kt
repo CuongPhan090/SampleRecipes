@@ -1,5 +1,6 @@
 package com.offline.continentalrecipesusingnavgraph.view.authentication
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -47,6 +48,11 @@ class RegisterFragment : Fragment() {
             auth.createUserWithEmailAndPassword(binding.email.text.toString(), binding.password.text.toString())
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
+                        requireActivity().getSharedPreferences("credential", Context.MODE_PRIVATE).edit().apply{
+                            putString("email",  binding.email.text.toString())
+                            putString("password", binding.password.text.toString())
+                            putBoolean("isLogIn", true)
+                        }.apply()
                         it.result?.user?.let { firebaseUser ->
                             val userToken = firebaseUser.getIdToken(false).result?.token
                             requireActivity().supportFragmentManager.setFragmentResult("emailAddress", bundleOf("email" to firebaseUser.email))
