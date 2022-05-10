@@ -1,13 +1,18 @@
 package com.offline.continentalrecipesusingnavgraph.view.authentication
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
+import androidx.biometric.BiometricPrompt
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -67,6 +72,18 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_login_fragment_to_resetPasswordFragment)
         }
 
+        if (context?.packageManager?.hasSystemFeature(PackageManager.FEATURE_FACE) == false) {
+            binding.usernameLayout.isEndIconVisible = false
+        } else {
+            binding.usernameLayout.setEndIconOnClickListener {
+                if (biometricAvailable()) {
+                    promptAuthenticatorDialog()
+                } else {
+                    Toast.makeText(binding.root.context, "The device has not set up FaceId.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
         textWatcher = object: TextWatcher{
             var isUsernameValid = false
             var isPasswordValid = false
@@ -92,6 +109,35 @@ class LoginFragment : Fragment() {
         binding.username.addTextChangedListener(textWatcher)
         binding.password.addTextChangedListener(textWatcher)
 
+    }
+
+    private fun promptAuthenticatorDialog() {
+        val biometricPrompt = BiometricPrompt(this,object: BiometricPrompt.AuthenticationCallback(){
+            override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                super.onAuthenticationSucceeded(result)
+                Toast.makeText(binding.root.context, "Success", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onAuthenticationFailed() {
+                super.onAuthenticationFailed()
+                Toast.makeText(binding.root.context, "FaceId is not recognized", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        val biometricInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Biometric Login")
+            .setSubtitle("Scan your face to log in")
+            .setNegativeButtonText("Cancel")
+            .setConfirmationRequired(false)
+            .setAllowedAuthenticators(BIOMETRIC_WEAK)
+            .build()
+
+        biometricPrompt.authenticate(biometricInfo)
+    }
+
+    private fun biometricAvailable(): Boolean {
+        val biometricManager = BiometricManager.from(binding.root.context)
+        return biometricManager.canAuthenticate(BIOMETRIC_WEAK) ==  BiometricManager.BIOMETRIC_SUCCESS
     }
 
     private fun validateUserInput(isUsernameValid: Boolean, isPasswordValid: Boolean) {
