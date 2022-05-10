@@ -40,7 +40,7 @@ class LoginFragment : Fragment() {
                 binding.username.text.toString(),
                 binding.password.text.toString()
             ).addOnSuccessListener {
-                val userToken = it.user?.getIdToken(false)?.result?.token ?: ""
+                val userToken = it.user?.getIdToken(false)?.result?.token
                 findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToCategoryFragment(userToken))
             }
             .addOnFailureListener {
@@ -72,11 +72,11 @@ class LoginFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {
                 s?.let {
-                    when {
-                        s === binding.username.editableText -> {
+                    when (s) {
+                        binding.username.editableText -> {
                             isUsernameValid = android.util.Patterns.EMAIL_ADDRESS.matcher(it.toString()).matches()
                         }
-                        s === binding.password.editableText -> {
+                        binding.password.editableText -> {
                             isPasswordValid = it.length >= 6
                         }
                     }

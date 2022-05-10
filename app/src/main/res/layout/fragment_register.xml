@@ -36,70 +36,52 @@
         app:layout_constraintTop_toBottomOf="@id/register_text_view" />
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password_layout"
+    <EditText
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/edit_text_margin"
         android:layout_marginEnd="@dimen/edit_text_margin"
-        app:endIconDrawable="@drawable/password_visibility_toggle"
+        android:autofillHints="password"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:maxEms="20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@null">
+        app:layout_constraintTop_toBottomOf="@id/email" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:autofillHints="password"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/confirmed_password_layout"
+    <EditText
+        android:id="@+id/confirmed_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/edit_text_margin"
         android:layout_marginEnd="@dimen/edit_text_margin"
-        app:endIconDrawable="@drawable/password_visibility_toggle"
+        android:autofillHints="password"
+        android:hint="@string/confirm_password"
+        android:inputType="textPassword"
+        android:maxEms="20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_layout"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@null">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/confirmed_password"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:autofillHints="password"
-            android:hint="@string/confirm_password"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@id/password" />
 
     <EditText
         android:id="@+id/full_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/edit_text_margin"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="@dimen/edit_text_margin"
         android:autofillHints="name"
         android:hint="@string/full_name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/confirmed_password_layout" />
+        app:layout_constraintTop_toBottomOf="@id/confirmed_password" />
 
     <EditText
         android:id="@+id/phone_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/edit_text_margin"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="@dimen/edit_text_margin"
         android:autofillHints="phone"
         android:hint="@string/phone_number"
@@ -113,6 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/button_margin"
+        android:enabled="false"
         android:text="@string/sign_up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -141,4 +124,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/new_member" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

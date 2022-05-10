@@ -1,4 +1,4 @@
-package com.offline.continentalrecipesusingnavgraph.view.scanner
+package com.offline.continentalrecipesusingnavgraph.uishared
 
 import android.content.Context
 import android.content.res.Resources

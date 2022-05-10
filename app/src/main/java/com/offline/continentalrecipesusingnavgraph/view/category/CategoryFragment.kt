@@ -70,7 +70,6 @@ class CategoryFragment : Fragment() {
                 .create()
                 .show()
         }
-
         Toast.makeText(view.context, categoryArgs.userToken, Toast.LENGTH_SHORT).show()
     }
 
