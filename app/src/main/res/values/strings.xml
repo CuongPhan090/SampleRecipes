@@ -32,6 +32,6 @@
     <string name="enter_your_email_and_we_ll_send_you_a_link_to_reset_your_password">Enter your email and we\'ll send you a link to reset your password.</string>
     <string name="submit">Submit</string>
     <string name="go_back_home">Go back home</string>
-    <string name="reset_password_alert">Please check your email address for instruction to reset your password</string>
+    <string name="reset_password_alert">Please check your email address for instructions to reset your password</string>
     <string name="log_out">Log out</string>
 </resources>

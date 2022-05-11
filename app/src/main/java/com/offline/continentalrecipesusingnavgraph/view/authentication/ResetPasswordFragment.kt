@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 import com.offline.continentalrecipesusingnavgraph.R
 import com.offline.continentalrecipesusingnavgraph.databinding.FragmentResetPasswordBinding
 import kotlinx.coroutines.CoroutineScope
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
 
 class ResetPasswordFragment : Fragment() {
     private lateinit var binding: FragmentResetPasswordBinding
+    private var auth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +47,7 @@ class ResetPasswordFragment : Fragment() {
             AlertDialog.Builder(view.context)
                 .setMessage(getString(R.string.reset_password_alert))
                 .setPositiveButton("Ok") { dialog, _ ->
+                    auth.sendPasswordResetEmail(binding.email.text.toString())
                     dialog.dismiss()
                 }
                 .create()
