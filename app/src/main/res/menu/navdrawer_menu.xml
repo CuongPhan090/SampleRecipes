@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:id="@+id/primary">
         <item
-            android:id="@+id/favorite_fragment"
+            android:id="@+id/favorite_menu_option"
             android:icon="@drawable/ic_dense_favorite"
             android:title="@string/favorite" />
     </group>

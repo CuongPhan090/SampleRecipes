@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.FragmentResultOwner
@@ -89,11 +90,18 @@ class EntryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             R.id.about_menu_option -> startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                 this.data = Uri.parse("package:" + baseContext.packageName)
             })
-            else -> {
-                item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment))
+            R.id.favorite_menu_option -> {
+                findNavController(R.id.nav_host_fragment).navigate(R.id.action_category_fragment_to_favorite_fragment)
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
             }
         }
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.scanner_option_menu -> findNavController(R.id.nav_host_fragment).navigate(R.id.action_category_fragment_to_scannerFragment)
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
