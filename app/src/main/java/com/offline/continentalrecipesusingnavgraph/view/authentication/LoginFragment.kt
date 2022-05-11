@@ -70,6 +70,9 @@ class LoginFragment : Fragment() {
             binding.usernameLayout.isEndIconVisible = false
         }
 
+        binding.username.setText(sharedPref.getString("savedEmail", ""))
+        binding.checkBox.isChecked = sharedPref.contains("savedEmail")
+
         textWatcher = object: TextWatcher{
             var isUsernameValid = false
             var isPasswordValid = false
@@ -116,7 +119,11 @@ class LoginFragment : Fragment() {
                             putBoolean("isLogIn", true)
                         }.apply()
                     }
-
+                    if (binding.checkBox.isChecked) {
+                        sharedPref.edit().putString("savedEmail",  email).apply()
+                    } else {
+                        sharedPref.edit().remove("savedEmail").apply()
+                    }
                 it.result?.user?.let { firebaseUser ->
                     val userToken = firebaseUser.getIdToken(false).result?.token
                     requireActivity().supportFragmentManager.setFragmentResult("emailAddress", bundleOf("email" to firebaseUser.email))
