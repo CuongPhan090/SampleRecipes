@@ -8,6 +8,7 @@ import android.provider.Settings
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
@@ -93,6 +94,20 @@ class EntryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             R.id.favorite_menu_option -> {
                 findNavController(R.id.nav_host_fragment).navigate(R.id.action_category_fragment_to_favorite_fragment)
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            R.id.log_out_menu_option -> {
+                AlertDialog.Builder(binding.root.context)
+                    .setTitle("Are you sure you want to log out?")
+                    .setPositiveButton("Log out") { _, _ ->
+                        getSharedPreferences("credential", MODE_PRIVATE).edit().clear().apply()
+                        binding.drawerLayout.closeDrawer(GravityCompat.START)
+                        findNavController(R.id.nav_host_fragment).navigate(R.id.action_category_fragment_to_login_fragment)
+                    }
+                    .setNegativeButton("Cancel") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .create()
+                    .show()
             }
         }
         return true
