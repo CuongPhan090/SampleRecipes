@@ -34,4 +34,7 @@
     <string name="go_back_home">Go back home</string>
     <string name="reset_password_alert">Please check your email address for instructions to reset your password</string>
     <string name="log_out">Log out</string>
+    <string name="session_timeout_title">Your session is about to expire.</string>
+    <string name="session_timeout_message">"You've been inactive for a while. For your security, we'll automatically sign you out in approximately 1 minute.\n\nChoose \"Stay signed in\" to continue or \"Sign out\" if you're done."</string>
+    <string name="time_out_count_down">Time Out: 60s</string>
 </resources>
