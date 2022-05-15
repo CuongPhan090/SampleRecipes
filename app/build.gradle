@@ -53,6 +53,7 @@ dependencies {
 
     // Firebase
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.3'
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.5'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -63,7 +64,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
-    // Material Component / Nav Drawer
+    // Material Component / Nav Drawer  
     implementation "com.google.android.material:material:1.5.0"
 
     // Hilt

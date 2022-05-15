@@ -96,7 +96,7 @@ class EntryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                     }
                 }
             }
-        }, 5000)
+        }, 50000)
     }
 
     private fun signOut() {

@@ -16,13 +16,20 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.offline.continentalrecipesusingnavgraph.R
+import com.offline.continentalrecipesusingnavgraph.data.model.User
+import com.offline.continentalrecipesusingnavgraph.data.remote.FirebaseApiImpl
 import com.offline.continentalrecipesusingnavgraph.databinding.FragmentRegisterBinding
 import com.offline.continentalrecipesusingnavgraph.uishared.ProgressAlertDialog
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var textWatcher: TextWatcher
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private var firebaseApi = FirebaseApiImpl()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +64,15 @@ class RegisterFragment : Fragment() {
                             val userToken = firebaseUser.getIdToken(false).result?.token
                             requireActivity().supportFragmentManager.setFragmentResult("emailAddress", bundleOf("email" to firebaseUser.email))
                             findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToCategoryFragment(userToken))
+                            CoroutineScope(Dispatchers.IO).launch {
+                                    firebaseApi.createUserAccount(firebaseUser.uid, User(
+                                        fullname = binding.fullName.text.toString(),
+                                        password = binding.password.text.toString(),
+                                        email = binding.email.text.toString(),
+                                        phoneNumber = binding.phoneNumber.text.toString()
+                                    )
+                                )
+                            }
                         }
                     } else {
                         AlertDialog.Builder(view.context)

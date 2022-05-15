@@ -124,10 +124,11 @@ class LoginFragment : Fragment() {
                     } else {
                         sharedPref.edit().remove("savedEmail").apply()
                     }
-                it.result?.user?.let { firebaseUser ->
-                    val userToken = firebaseUser.getIdToken(false).result?.token
-                    requireActivity().supportFragmentManager.setFragmentResult("emailAddress", bundleOf("email" to firebaseUser.email))
-                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToCategoryFragment(userToken))
+
+                    it.result?.user?.let { firebaseUser ->
+                        val userToken = firebaseUser.getIdToken(false).result?.token
+                        requireActivity().supportFragmentManager.setFragmentResult("emailAddress", bundleOf("email" to firebaseUser.email))
+                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToCategoryFragment(userToken))
                 }
             } else {
                 AlertDialog.Builder(binding.root.context)

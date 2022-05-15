@@ -6,24 +6,27 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.google.firebase.auth.FirebaseAuth
 import com.offline.continentalrecipesusingnavgraph.R
 import com.offline.continentalrecipesusingnavgraph.data.local.MealEntity
+import com.offline.continentalrecipesusingnavgraph.data.model.FavoriteRecipe
+import com.offline.continentalrecipesusingnavgraph.data.remote.FirebaseApiImpl
 import com.offline.continentalrecipesusingnavgraph.databinding.FragmentRecipeBinding
 import com.offline.continentalrecipesusingnavgraph.model.Recipe
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RecipeFragment : Fragment() {
@@ -31,6 +34,8 @@ class RecipeFragment : Fragment() {
     private val viewModel: RecipeViewModel by viewModels()
     private lateinit var favoriteMeal: List<MealEntity>
     private val args: RecipeFragmentArgs by navArgs()
+    private val firebaseApi = FirebaseApiImpl()
+    private val firebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +56,8 @@ class RecipeFragment : Fragment() {
         }
         (activity as AppCompatActivity).supportActionBar?.title = viewModel.selectedMeal
         postponeEnterTransition()
+
+        firebaseApi.setDataChangeListener(firebaseAuth.currentUser?.uid ?: "")
         return binding.root
     }
 
@@ -73,6 +80,9 @@ class RecipeFragment : Fragment() {
                         )
                     )
                     viewModel.removeFavoriteMeal(mealEntity)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        firebaseApi.removeFavouriteRecipe(firebaseAuth.currentUser?.uid ?: "", FavoriteRecipe(name = recipe.name, thumb = recipe.thumb, id = recipe.idMeal))
+                    }
                 } else {
                     binding.favoriteFab.setImageDrawable(
                         getDrawable(
@@ -81,6 +91,9 @@ class RecipeFragment : Fragment() {
                         )
                     )
                     viewModel.addFavoriteMeal(mealEntity)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        firebaseApi.addFavouriteRecipe(firebaseAuth.currentUser?.uid ?: "", FavoriteRecipe(name = recipe.name, thumb = recipe.thumb, id = recipe.idMeal))
+                    }
                 }
             }
         }
