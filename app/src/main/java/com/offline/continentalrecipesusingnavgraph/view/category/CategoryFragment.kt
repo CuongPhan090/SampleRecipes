@@ -54,7 +54,7 @@ class CategoryFragment : Fragment() {
         }
         binding.categoryRecyclerView.adapter = adapter
         viewModel.category.observe(viewLifecycleOwner) {
-            adapter.submitList(it.categories)
+            adapter.submitList(it?.categories)
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {

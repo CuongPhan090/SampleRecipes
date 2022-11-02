@@ -11,15 +11,15 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 interface MealRepository {
-    suspend fun getCategories(): Categories
+    suspend fun getCategories(): Categories?
     fun putSelectedCategory(selectedCategoryName: String)
     fun getSelectedCategory(): String
 
-    suspend fun getMeals(selectedCategory: String): Meals
+    suspend fun getMeals(selectedCategory: String): Meals?
     fun putSelectedMeal(selectedMealName: String)
     fun getSelectedMeal(): String
 
-    suspend fun getRecipe(selectedMealName: String): Recipes
+    suspend fun getRecipe(selectedMealName: String): Recipes?
 
     suspend fun insertMeal(meal: MealEntity)
     suspend fun removeMeal(meal: MealEntity)
@@ -34,8 +34,8 @@ class MealRepositoryImpl @Inject constructor(
 
     private val itemClickedMap = mutableMapOf<String, String>()
 
-    override suspend fun getCategories(): Categories =
-        remoteData.getCategories()
+    override suspend fun getCategories(): Categories? =
+        remoteData.getCategories().body
 
     override fun putSelectedCategory(selectedCategoryName: String) {
         itemClickedMap["selectedCategoryName"] = selectedCategoryName
@@ -44,8 +44,8 @@ class MealRepositoryImpl @Inject constructor(
     override fun getSelectedCategory(): String =
         itemClickedMap["selectedCategoryName"] ?: ""
 
-    override suspend fun getMeals(selectedCategory: String): Meals =
-        remoteData.getMeals(selectedCategory)
+    override suspend fun getMeals(selectedCategory: String): Meals? =
+        remoteData.getMeals(selectedCategory).body
 
     override fun putSelectedMeal(selectedMealName: String) {
         itemClickedMap["selectedMeal"] = selectedMealName
@@ -54,8 +54,8 @@ class MealRepositoryImpl @Inject constructor(
     override fun getSelectedMeal(): String =
         itemClickedMap["selectedMeal"] ?: ""
 
-    override suspend fun getRecipe(selectedMealName: String): Recipes =
-        remoteData.getRecipe(selectedMealName)
+    override suspend fun getRecipe(selectedMealName: String): Recipes? =
+        remoteData.getRecipe(selectedMealName).body
 
     override suspend fun insertMeal(meal: MealEntity) =
         localData.insertMeal(meal)

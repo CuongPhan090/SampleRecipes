@@ -53,7 +53,7 @@ class MealFragment : Fragment() {
 
         binding.mealRecyclerView.adapter = adapter
         viewModel.meals.observe(viewLifecycleOwner) {
-            adapter.submitList(it.meals)
+            adapter.submitList(it?.meals)
         }
     }
 }

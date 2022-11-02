@@ -67,32 +67,34 @@ class RecipeFragment : Fragment() {
             favoriteMeal = it
         }
         viewModel.recipe.observe(viewLifecycleOwner) {
-            val recipe = it.recipes[0]
-            setupView(recipe)
-            binding.recipeImage.transitionName = recipe.idMeal
-            binding.favoriteFab.setOnClickListener {
-                val mealEntity: MealEntity = getExistEntityOrNewOne(recipe)
-                if (isFavorite(recipe)) {
-                    binding.favoriteFab.setImageDrawable(
-                        getDrawable(
-                            binding.root.context,
-                            R.drawable.ic_hollow_favorite
+            val recipe = it?.recipes?.get(0)
+            recipe?.let { recipe ->
+                setupView(recipe)
+                binding.recipeImage.transitionName = recipe.idMeal
+                binding.favoriteFab.setOnClickListener {
+                    val mealEntity: MealEntity = getExistEntityOrNewOne(recipe)
+                    if (isFavorite(recipe)) {
+                        binding.favoriteFab.setImageDrawable(
+                            getDrawable(
+                                binding.root.context,
+                                R.drawable.ic_hollow_favorite
+                            )
                         )
-                    )
-                    viewModel.removeFavoriteMeal(mealEntity)
-                    CoroutineScope(Dispatchers.IO).launch {
-                        firebaseApi.removeFavouriteRecipe(firebaseAuth.currentUser?.uid ?: "", FavoriteRecipe(name = recipe.name, thumb = recipe.thumb, id = recipe.idMeal))
-                    }
-                } else {
-                    binding.favoriteFab.setImageDrawable(
-                        getDrawable(
-                            binding.root.context,
-                            R.drawable.ic_dense_favorite
+                        viewModel.removeFavoriteMeal(mealEntity)
+                        CoroutineScope(Dispatchers.IO).launch {
+                            firebaseApi.removeFavouriteRecipe(firebaseAuth.currentUser?.uid ?: "", FavoriteRecipe(name = recipe.name, thumb = recipe.thumb, id = recipe.idMeal))
+                        }
+                    } else {
+                        binding.favoriteFab.setImageDrawable(
+                            getDrawable(
+                                binding.root.context,
+                                R.drawable.ic_dense_favorite
+                            )
                         )
-                    )
-                    viewModel.addFavoriteMeal(mealEntity)
-                    CoroutineScope(Dispatchers.IO).launch {
-                        firebaseApi.addFavouriteRecipe(firebaseAuth.currentUser?.uid ?: "", FavoriteRecipe(name = recipe.name, thumb = recipe.thumb, id = recipe.idMeal))
+                        viewModel.addFavoriteMeal(mealEntity)
+                        CoroutineScope(Dispatchers.IO).launch {
+                            firebaseApi.addFavouriteRecipe(firebaseAuth.currentUser?.uid ?: "", FavoriteRecipe(name = recipe.name, thumb = recipe.thumb, id = recipe.idMeal))
+                        }
                     }
                 }
             }
