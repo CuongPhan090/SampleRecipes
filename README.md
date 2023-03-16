@@ -12,7 +12,7 @@ cd <local clone dir>
 - Clone the repository
 
 ``` bash
-git clone https://github.com/CuongPhan090/RickAndMortyWiki
+git clone https://github.com/CuongPhan090/SampleRecipes
 ```
 
 ## Overview
